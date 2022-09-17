@@ -133,11 +133,7 @@ class Cat {
     display() {
         let v = p5.Vector.sub(this.pos, cameraPos);
         if (abs(v.x) <= width && abs(v.x) > 0 && abs(v.y) <= height && abs(v.y) > 0) {
-            // line(this.pos.x, this.pos.y, this.currentTarget.x, this.currentTarget.y);
-            push();
-            translate(this.pos.x, this.pos.y);
-            image(catImg, 0, 0, this.size, this.size);
-            pop();
+            image(catImg, this.pos.x, this.pos.y, this.size, this.size);
         }
     }
 }
