@@ -47,10 +47,7 @@ class Player {
         this.moveAxis.set(keyIsDown(68) - keyIsDown(65), keyIsDown(83) - keyIsDown(87));
         this.moveAxis.normalize();
 
-        this.vel.set(
-            (this.vel.x + this.moveAxis.x * this.speed) * this.friction,
-            (this.vel.y + this.moveAxis.y * this.speed) * this.friction
-        );
+        this.vel.set((this.vel.x + this.moveAxis.x * this.speed) * this.friction, (this.vel.y + this.moveAxis.y * this.speed) * this.friction);
 
         this.pos.add(this.vel);
         this.borderCheck();
@@ -69,16 +66,13 @@ class Player {
         if (this.vel.x < 0) angle += PI;
         rotate(angle);
 
+        if (this.hurtTimer != 0) scale(this.hurtTimer / this.hurtLength, this.hurtTimer / this.hurtLength);
         image(mouseImg, 0, 0, this.size, this.size);
-        if (this.hurtTimer != 0) {
-            fill(255, 0, 0);
-            circle(0, 0, this.size);
-        }
 
         pop();
     }
 
-    ui() {
+    drawUI() {
         if (this.hurtTimer != 0) fill(255, 0, 0);
         else fill(255);
         text(str(this.lives), 150, 150);
@@ -167,8 +161,6 @@ function gameSetup() {
 function draw() {
     background(0);
 
-    // if (score === 0) tint(255, 0, 0);
-
     score += 0.01 * DIFFICULTY;
 
     player.update();
@@ -186,7 +178,7 @@ function draw() {
     pop();
 
     text(str(score.toFixed(2)), 300, 150);
-    player.ui();
+    player.drawUI();
 }
 
 function keyPressed() {
